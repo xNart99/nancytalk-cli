@@ -1,24 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, Box} from 'ink';
 import useResizeTerminal from '../../hooks/useResizeTerminal.js';
+import {Markdown} from '../Markdown/Markdown.js';
 
 function HistoryChatBoxLayout({chatMessage}) {
 	const {rows, columns} = useResizeTerminal();
 	const [scrollOffset, setScrollOffset] = useState(0);
 
-	const height = Math.floor(rows * 0.7);
+	const height = Math.min(Math.floor(rows * 0.7), rows - 4);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setScrollOffset(0);
-	}, [chatMessage]);
+	}, [chatMessage.length, rows]);
 
 	const visibleMessages = chatMessage.slice(
-		Math.max(chatMessage.length - rows - scrollOffset, 0),
+		Math.max(chatMessage.length - height - scrollOffset, 0),
 		chatMessage.length - scrollOffset,
 	);
-	console.error('Rows:', rows);
-	console.error('chatMessage Length:', chatMessage.length);
-	console.error(chatMessage);
 
 	return (
 		<>
@@ -34,7 +32,9 @@ function HistoryChatBoxLayout({chatMessage}) {
 			>
 				{visibleMessages.map((msg, i) => (
 					<Box key={i} width="100%">
-						<Text wrap="wrap">{msg}</Text>
+						<Text wrap="wrap">
+							<Markdown>{msg}</Markdown>
+						</Text>
 					</Box>
 				))}
 			</Box>

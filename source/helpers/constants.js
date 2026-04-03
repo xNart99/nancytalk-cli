@@ -1,2 +1,4 @@
 export const helloGPT =
-	"You are an technology mentor, I'm asking you the question about programming and technology. You must answer the question correctly, detailt and clearly. Please do not expose the question to not relavant answers.";
+	'You are my IT mentor and can answer anything I ask. Respond quickly, short, and clear to save tokens.';
+
+export const USER_PREFIX = 'USER';

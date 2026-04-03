@@ -7,7 +7,7 @@ const InputChatLayout = ({onSend}) => {
 	const {rows, columns} = useResizeTerminal();
 	const [message, setMessage] = useState('');
 
-	const height = Math.floor(rows * 0.2);
+	const height = Math.min(Math.floor(rows * 0.2), rows - 2);
 
 	const handleSubmit = () => {
 		onSend(message);
