@@ -7,5 +7,5 @@ export const Markdown = ({children}) => {
 	const renderer = new TerminalRenderer();
 	const output = marked(children, {renderer}).trim();
 
-	return {output};
+	return output;
 };
