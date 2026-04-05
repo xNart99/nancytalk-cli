@@ -7,12 +7,14 @@ function HistoryChatBoxLayout({chatMessage}) {
 	const {rows, columns} = useResizeTerminal();
 	const [scrollOffset, setScrollOffset] = useState(0);
 
+	// Box height = 70% - 4 rows sizing.
 	const height = Math.min(Math.floor(rows * 0.7), rows - 4);
 
 	useEffect(() => {
 		setScrollOffset(0);
 	}, [chatMessage.length, rows]);
 
+	// Limitting the messesage inside the border box.
 	const visibleMessages = chatMessage.slice(
 		Math.max(chatMessage.length - height - scrollOffset, 0),
 		chatMessage.length - scrollOffset,

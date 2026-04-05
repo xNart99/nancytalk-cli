@@ -2,11 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {Box} from 'ink';
 import HistoryChatBoxLayout from './components/HistoryChatBoxLayout/HistoryChatBoxLayout.js';
 import InputChatLayout from './components/InputChatLayout/InputChatLayout.js';
-import {helloGPT} from './helpers/constants.js';
+import {helloGPT, SEPARATE_SYNTAX, USER_PREFIX} from './helpers/constants.js';
 import askNancyQuestion from './helpers/request.js';
 
 export default function App() {
 	const [message, setMessage] = useState([]);
+
+	// generation prefix
+	const prefix = USER_PREFIX + SEPARATE_SYNTAX;
 
 	const handleSend = msg => {
 		msg = 'USER >> ' + msg;
@@ -16,7 +19,7 @@ export default function App() {
 	useEffect(() => {
 		if (message.length === 0) return;
 
-		if (!message.at(-1).startsWith('USER >> ')) return;
+		if (!message.at(-1).startsWith(prefix)) return;
 
 		setMessage(preMess => [
 			...preMess,
@@ -26,7 +29,7 @@ export default function App() {
 		const filterMessage = [
 			helloGPT + 'Day la cau hoi cua tao: ' + message.at(-1),
 		];
-		filterMessage[0].replace('USER >> ', '');
+		filterMessage[0].replace(prefix);
 
 		// console.log(filterMessage[0]);
 		// console.log(typeof filterMessage[0]);

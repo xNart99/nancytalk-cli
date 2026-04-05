@@ -1,7 +1,6 @@
 import React from 'react';
 import TerminalRenderer from 'marked-terminal';
 import {marked, parse} from 'marked';
-import {Text} from 'ink';
 
 export const Markdown = ({children}) => {
 	const renderer = new TerminalRenderer();
